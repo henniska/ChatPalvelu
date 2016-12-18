@@ -1,1 +1,2 @@
-# ChatPalvelu
+# ForumPalvelu
+Yksinkertainen forum web-sovellus
