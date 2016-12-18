@@ -20,22 +20,21 @@ public class DefaultController {
     @Autowired
     private AccountRepository userDetailsRepository;
  
-    @PostConstruct
-    public void init() {
-        if (userDetailsRepository.findByUsername("test") != null) {
-            return;
-        }
- 
-        Account user = new Account();
-        user.setUsername("test");
-        user.setPassword(passwordEncoder.encode("test"));
- 
-        user = userDetailsRepository.save(user);
-    }
+//    @PostConstruct
+//    public void init() {
+//        if (userDetailsRepository.findByUsername("test") != null) {
+//            return;
+//        }
+// 
+//        Account user = new Account();
+//        user.setUsername("test");
+//        user.setPassword(passwordEncoder.encode("test"));
+// 
+//        user = userDetailsRepository.save(user);
+//    }
 
-    @RequestMapping("*")
-    @ResponseBody
-    public String home() {
-        return "Hello World!";
-    }
+//    @RequestMapping("*")
+//    public String home() {
+//        return "forum";
+//    }
 }

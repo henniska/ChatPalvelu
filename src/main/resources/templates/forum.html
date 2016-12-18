@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Forum</title>
+    </head>
+
+    <body>
+        <h1>Topics</h1>
+ 
+        <ol>
+            <li th:each="forum: ${forums}">
+                <a th:href="@{/forum/{id}(id=${forum.title})}" th:text="${forum.title}">title</a>
+            </li>
+        </ol>
+ 
+ 
+        <h2>Add topic</h2>
+ 
+        <form action="/forum" method="POST">
+            <span>Topic:</span>
+            <input type="text" name="title"/>
+            <input type="submit" value="Add!"/>
+        </form>
+    </body>
+</html>
+

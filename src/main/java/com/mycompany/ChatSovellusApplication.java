@@ -3,7 +3,7 @@ package com.mycompany;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages={"com.mycompany","com.mycompany.config"})
+@SpringBootApplication
 public class ChatSovellusApplication {
 
     public static void main(String[] args) {
