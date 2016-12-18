@@ -20,21 +20,17 @@ public class DefaultController {
     @Autowired
     private AccountRepository userDetailsRepository;
  
-//    @PostConstruct
-//    public void init() {
-//        if (userDetailsRepository.findByUsername("test") != null) {
-//            return;
-//        }
-// 
-//        Account user = new Account();
-//        user.setUsername("test");
-//        user.setPassword(passwordEncoder.encode("test"));
-// 
-//        user = userDetailsRepository.save(user);
-//    }
 
-//    @RequestMapping("*")
-//    public String home() {
-//        return "forum";
-//    }
+
+    @RequestMapping("*")
+    public String doDefaultRedirect() {
+        return "redirect:/forum";
+    }
+    
+    @RequestMapping("/welcome")
+    public String welcome() {
+        return "welcome";
+    }
+    
+    
 }

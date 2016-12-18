@@ -6,6 +6,37 @@
  
     <body>
         <a th:href="@{/forum}">Back to topic list</a>
- 
+        <br></br>
+        <div style="color: #0b11f4">
+            <h1 th:text="${forum.title}"></h1>
+        </div>
+        
+        
+        <table>
+            <tr th:each="post: ${posts}">
+                <td>
+                    <div style="width: 320px; padding: 10px; border: 5px solid grey; margin: 0;">
+                        <p><small>Created by: <span th:text="${post.username}"></span></small></p>
+                        <h3 th:text="${post.title}">title</h3>
+                        <p th:text="${post.content}">content</p>
+                    </div>
+                    
+                    
+                    
+                </td>
+                <!--<td th:text="${post.created}">title</td>-->
+            </tr>
+        </table>
+        <br></br>
+        <form method="POST" id="usrform">
+            <span>Title:</span>
+            <input type="text" name="name"/>
+            
+            <input type="submit" value="Add!"/>
+            <br></br>
+        </form>
+        <textarea rows="10" cols="40" name="content" form="usrform"></textarea>
+        
+        
     </body>
 </html>

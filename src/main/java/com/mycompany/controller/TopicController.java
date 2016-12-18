@@ -10,8 +10,13 @@ import com.mycompany.domain.Forum;
 import com.mycompany.domain.Post;
 import com.mycompany.repository.AccountRepository;
 import com.mycompany.repository.ForumRepository;
+import com.mycompany.repository.PostRepository;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import static javax.persistence.TemporalType.TIMESTAMP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,29 +35,40 @@ public class TopicController {
     
     @Autowired
     ForumRepository forumRepository;
+    
+    @Autowired
+    PostRepository postRepository;
 
     @RequestMapping(value="/forum/{title}", method = RequestMethod.GET)
     public String view(Model model, @PathVariable String title) {
-        model.addAttribute("forum", forumRepository.findByTitle(title));
+        Forum f = forumRepository.findByTitle(title);
+        model.addAttribute("forum", f);
+        model.addAttribute("posts", f.getPosts());
         return "single";
     }
  
     @RequestMapping(value = "/forum/{title}", method = RequestMethod.POST)
-    public String add(@RequestParam String title) {
+    public String add(@PathVariable String title, @RequestParam String name, String content) {
         if (!title.trim().isEmpty()) {
-            Forum f = new Forum();
+            Forum f = forumRepository.findByTitle(title);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String name = auth.getPrincipal().toString();
-                    
-            f.setTitle(title.trim());
-            f.setUserWhoCreated(accountRepository.findByUsername(name));
-            f.setPosts(new ArrayList<Post>());
+            String user = auth.getName();
+            Account a = accountRepository.findByUsername(user);
+            
+            Post p = new Post();
+            p.setUser(a);
+            p.setTitle(name);
+            p.setContent(content);
+            p.setUsername(user);
+            postRepository.save(p);
+            
+            List<Post> list = f.getPosts();
+            list.add(p);
             forumRepository.save(f);
-            forumRepository.flush();
+
             return "redirect:/forum/" + f.getTitle();
         }
-        System.out.println("SOMETHING WRONG HERE");
-        return "redirect:/forum";
+        return "redirect:/forum/" + forumRepository.findByTitle(title).getTitle();
     }
 
 

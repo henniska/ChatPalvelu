@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Welcome</title>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <div style="color: #f7932f">
+            <h1>Welcome to ForumPalvelu!</h1>
+        </div>
+        <br></br>
+        <form action="/forum">
+            <input type="submit" value="Go to forum"/>
+        </form>
+        <br></br>
+        <a th:href="@{/login}">LOG IN</a>
+        <br></br>
+        <a th:href="@{/registration}">SIGN UP</a>
+    </body>
+</html>
+
