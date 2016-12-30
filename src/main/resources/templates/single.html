@@ -10,7 +10,8 @@
         <div style="color: #0b11f4">
             <h1 th:text="${forum.title}"></h1>
         </div>
-        
+        <p><small>Number of views: <span th:text="${visits}"></span></small></p>
+        <br></br>
         
         <table>
             <tr th:each="post: ${posts}">
@@ -20,7 +21,11 @@
                         <h3 th:text="${post.title}">title</h3>
                         <p th:text="${post.content}">content</p>
                     </div>
-                    
+                    <div sec:authorize="hasAuthority('ADMIN')">
+                        <form th:action="@{/forum/{title}/{id}(title=${forum.title},id=${post.id})}" method="POST">
+                            <input type="submit" value="Delete"/>
+                        </form>
+                    </div>
                     
                     
                 </td>

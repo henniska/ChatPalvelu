@@ -4,10 +4,11 @@ package com.mycompany.controller;
 import com.mycompany.domain.Account;
 import com.mycompany.domain.Forum;
 import com.mycompany.domain.Post;
+import com.mycompany.domain.Visits;
 import com.mycompany.repository.AccountRepository;
 import com.mycompany.repository.ForumRepository;
+import com.mycompany.repository.VisitsRepository;
 import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ForumController {
     
     @Autowired
+    VisitsRepository visitsRepository;
+    
+    @Autowired
     AccountRepository accountRepository;
     
     @Autowired
@@ -29,17 +33,6 @@ public class ForumController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String view(Model model) {
-//        Forum testi = new Forum();
-//        testi.setPosts(new ArrayList<>());
-//        testi.setTitle("poika");
-//        Account a = new Account();
-//        a.setUsername("fuck");
-//        a.setPassword("a");
-//        accountRepository.save(a);
-//        accountRepository.flush();
-//        testi.setUserWhoCreated(a);
-//        forumRepository.save(testi);
-//        forumRepository.flush();
         model.addAttribute("forums", forumRepository.findAll());
         return "forum";
     }
@@ -56,6 +49,12 @@ public class ForumController {
             f.setPosts(new ArrayList<Post>());
             forumRepository.save(f);
             forumRepository.flush();
+            
+            Visits v = new Visits();
+            v.setForum(f);
+            v.setName(title.trim());
+            v.setViews(0);
+            visitsRepository.save(v);
             return "redirect:/forum/" + f.getTitle();
         }
         System.out.println("SOMETHING WRONG HERE");
