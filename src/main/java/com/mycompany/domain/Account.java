@@ -4,6 +4,7 @@ package com.mycompany.domain;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -18,6 +19,7 @@ public class Account extends AbstractPersistable<Long> {
     private String password;
     
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn
     private List<Role> roles;
  
     public String getUsername() {
