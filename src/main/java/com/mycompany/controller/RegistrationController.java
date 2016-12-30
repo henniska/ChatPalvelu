@@ -39,6 +39,11 @@ public class RegistrationController {
     public String view() {
         return "registration";
     }
+    
+    @ModelAttribute
+    public Account getAccount() {
+        return new Account();
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public String register(@Valid 

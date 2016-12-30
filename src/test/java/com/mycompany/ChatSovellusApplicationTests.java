@@ -79,6 +79,7 @@ public class ChatSovellusApplicationTests {
         f.setUserWhoCreated(a);
         f.setTitle("tests");
         f.setPosts(posts);
+        forumRepository.save(f);
         
         Visits v = new Visits();
         v.setViews(2);
