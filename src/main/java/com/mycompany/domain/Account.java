@@ -2,6 +2,7 @@
 package com.mycompany.domain;
 
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 public class Account extends AbstractPersistable<Long> {
 
+    @Column(unique=true)
     @NotBlank
     private String username;
     
