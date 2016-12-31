@@ -4,7 +4,9 @@ package com.mycompany.controller;
 import javax.annotation.PostConstruct;
 import com.mycompany.domain.Account;
 import com.mycompany.repository.AccountRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,7 +29,9 @@ public class DefaultController {
         Account a = new Account();
         a.setUsername("admin");
         a.setPassword(passwordEncoder.encode("admin"));
-        a.setRoles(Arrays.asList("ADMIN"));
+        List<String> list = new ArrayList<>();
+        list.add("ADMIN");
+        a.setRoles(list);
         userRepository.save(a);
     }
 
