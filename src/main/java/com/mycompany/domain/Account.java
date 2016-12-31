@@ -18,7 +18,6 @@ public class Account extends AbstractPersistable<Long> {
     @NotBlank
     private String username;
     
-    @NotBlank
     private String password;
     
     @Column(nullable = true)
