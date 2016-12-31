@@ -54,9 +54,7 @@ public class ChatSovellusApplicationTests {
         Account a = new Account();
         a.setUsername("testUser");
         a.setPassword(passwordEncoder.encode("testPassword"));
-        List<String> list = new ArrayList<>();
-        list.add("USER");
-        a.setRoles(list);
+        a.setRole("USER");
         userRepository.save(a);
         
         Post p = new Post();

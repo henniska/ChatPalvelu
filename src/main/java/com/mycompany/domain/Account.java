@@ -18,11 +18,10 @@ public class Account extends AbstractPersistable<Long> {
     @NotBlank
     private String username;
     
+    @NotBlank
     private String password;
     
-    @Column(nullable = true)
-    @ElementCollection(fetch=FetchType.EAGER)
-    private List<String> roles;
+    private String role;
  
     public String getUsername() {
         return username;
@@ -40,12 +39,12 @@ public class Account extends AbstractPersistable<Long> {
         this.password = password;
     }
     
-    public List<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
  

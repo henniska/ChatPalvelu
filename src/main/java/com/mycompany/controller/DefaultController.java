@@ -29,9 +29,7 @@ public class DefaultController {
         Account a = new Account();
         a.setUsername("admin");
         a.setPassword(passwordEncoder.encode("admin"));
-        List<String> list = new ArrayList<>();
-        list.add("ADMIN");
-        a.setRoles(list);
+        a.setRole("ADMIN");
         userRepository.save(a);
     }
 

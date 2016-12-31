@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.mycompany.domain.Account;
 import com.mycompany.repository.AccountRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
  
@@ -32,9 +33,14 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("No such user: " + username);
         }
 
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (String role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role));
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+//        for (String role : user.getRoles()){
+//            grantedAuthorities.add(new SimpleGrantedAuthority(role));
+//        }
+        String role = user.getRole();
+        
+        if (role == null) {
+            throw new UsernameNotFoundException("No such user (aka role): " + username);
         }
 
         return new org.springframework.security.core.userdetails.User(
@@ -44,6 +50,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 true,
                 true,
                 true,
-                grantedAuthorities);
+                Arrays.asList(new SimpleGrantedAuthority(role)));
     }
 }
