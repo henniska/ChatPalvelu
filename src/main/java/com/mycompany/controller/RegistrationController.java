@@ -6,11 +6,8 @@
 package com.mycompany.controller;
 
 import com.mycompany.domain.Account;
-import com.mycompany.domain.Role;
 import com.mycompany.repository.AccountRepository;
-import com.mycompany.repository.RoleRepository;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,12 +24,8 @@ public class RegistrationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    
     @Autowired
     private AccountRepository accountRepository;
-    
-    @Autowired
-    private RoleRepository roleRepository;
     
 
     @RequestMapping(method = RequestMethod.GET)
@@ -55,15 +48,7 @@ public class RegistrationController {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        List<Role> roles = new ArrayList<>();
-        Role r = roleRepository.findByName("USER");
-        if (r == null) {
-            r = new Role();
-            r.setName("USER");
-            roleRepository.save(r);
-        }
-        roles.add(r);
-        user.setRoles(roles);
+        user.setRoles(Arrays.asList("USER"));
         accountRepository.save(user);
         return "redirect:/login";
     }

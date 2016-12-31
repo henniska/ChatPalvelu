@@ -3,11 +3,8 @@ package com.mycompany.controller;
 
 import javax.annotation.PostConstruct;
 import com.mycompany.domain.Account;
-import com.mycompany.domain.Role;
 import com.mycompany.repository.AccountRepository;
-import com.mycompany.repository.RoleRepository;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,26 +20,14 @@ public class DefaultController {
     @Autowired
     private AccountRepository userRepository;
     
-    @Autowired
-    private RoleRepository roleRepository;
- 
     @PostConstruct
     public void init() {
-        Role r1 = new Role();
-        Role r2 = new Role();
-        r1.setName("USER");
-        r2.setName("ADMIN");
-        roleRepository.save(r1);
-        roleRepository.save(r2);
-
         
     /*ADMIN LOGIN CREDENTIALS*/
         Account a = new Account();
         a.setUsername("admin");
         a.setPassword(passwordEncoder.encode("admin"));
-        List<Role> list = new ArrayList<>();
-        list.add(r2);
-        a.setRoles(list);
+        a.setRoles(Arrays.asList("ADMIN"));
         userRepository.save(a);
     }
 

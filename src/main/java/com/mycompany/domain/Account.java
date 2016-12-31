@@ -3,6 +3,7 @@ package com.mycompany.domain;
 
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -20,9 +21,8 @@ public class Account extends AbstractPersistable<Long> {
     @NotBlank
     private String password;
     
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinColumn
-    private List<Role> roles;
+    @ElementCollection(fetch=FetchType.EAGER)
+    private List<String> roles;
  
     public String getUsername() {
         return username;
@@ -40,11 +40,11 @@ public class Account extends AbstractPersistable<Long> {
         this.password = password;
     }
     
-    public List<Role> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
