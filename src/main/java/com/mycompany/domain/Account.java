@@ -21,6 +21,7 @@ public class Account extends AbstractPersistable<Long> {
     @NotBlank
     private String password;
     
+    @Column(nullable = true)
     @ElementCollection(fetch=FetchType.EAGER)
     private List<String> roles;
  
